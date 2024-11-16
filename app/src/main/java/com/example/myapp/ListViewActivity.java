@@ -10,8 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.demoapp.CustomExpandableListAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
