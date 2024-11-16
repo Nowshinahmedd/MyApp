@@ -1,4 +1,4 @@
-package git remote -vgit remote -vgcom.example.myapp;
+package com.example.myapp;
 
 import android.content.Context;
 import android.view.LayoutInflater;
