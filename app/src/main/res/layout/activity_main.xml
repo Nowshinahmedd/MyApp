@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
-    android:background="@drawable/icecream">
+    android:background="@drawable/be">
 
 
     <Button
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Click"
         android:textSize="25dp"
-        android:backgroundTint="#DF00A6FF" />
+        android:backgroundTint="#AD2600FF" />
 
 
     <TextView
@@ -35,7 +35,7 @@
         android:text="Go"
         android:layout_marginTop="16dp"
         android:textSize="25dp"
-        android:backgroundTint="#9442B34D" />
+        android:backgroundTint="#4DFB8C00" />
 
 
     <ImageView
@@ -79,5 +79,14 @@
         android:layout_marginTop="16dp"
         android:textSize="25dp"
         android:backgroundTint="#80009AC1" />
+
+    <Button
+        android:id="@+id/buttonGoToCheckActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#9A234743"
+        android:text="Check list view"
+        android:textSize="25dp" />
 
 </LinearLayout>

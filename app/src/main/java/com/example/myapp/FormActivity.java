@@ -1,4 +1,4 @@
-package com.example.myapp; // Ensure this matches your directory structure
+package com.example.myapp;
 
 import android.os.Bundle;
 import android.view.View;
@@ -43,7 +43,7 @@ public class FormActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize your views
+
         nameEditText = findViewById(R.id.name);
         idEditText = findViewById(R.id.sId);
         emailEditText = findViewById(R.id.email);
@@ -64,7 +64,7 @@ public class FormActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // No action needed
+
             }
         });
 

@@ -1,6 +1,5 @@
 package com.example.myapp;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,100 +12,90 @@ import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RadioActivity extends AppCompatActivity {
 
-    private CheckBox pizza, burger, pasta, salad;
+    // Declare views
+    private CheckBox pizzaCheckBox, burgerCheckBox, pastaCheckBox, saladCheckBox;
+    private TextView selectedFoodsTextView, quantityTextView, priceTextView, ratingTextView;
     private RadioGroup radioGroupDrinks;
-    private TextView quantityTextView;
-    private TextView priceTextView;
-    private Button orderButton;
+    private Button incrementButton, decrementButton, orderButton;
     private RatingBar ratingBar;
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch feedbackSwitch;
     private EditText feedbackEditText;
 
     private int quantity = 0;
-    private final int pricePerItem = 200;
+    private static final int PRICE_PER_ITEM = 200;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Change to your actual layout file name
+        setContentView(R.layout.activity_radio);
 
-        // Initialize UI components
-        pizza = findViewById(R.id.pizza);
-        burger = findViewById(R.id.burger);
-        pasta = findViewById(R.id.pasta);
-        salad = findViewById(R.id.salad);
-        radioGroupDrinks = findViewById(R.id.radioGroupDrinks);
-        TextView selectedFoods = findViewById(R.id.selectedFoods);
+
+        pizzaCheckBox = findViewById(R.id.pizza);
+        burgerCheckBox = findViewById(R.id.burger);
+        pastaCheckBox = findViewById(R.id.pasta);
+        saladCheckBox = findViewById(R.id.salad);
+        selectedFoodsTextView = findViewById(R.id.selectedFoods);
         quantityTextView = findViewById(R.id.quantityTextView);
         priceTextView = findViewById(R.id.priceTextView);
+        radioGroupDrinks = findViewById(R.id.radioGroupDrinks);
+        incrementButton = findViewById(R.id.increment);
+        decrementButton = findViewById(R.id.decrement);
+        orderButton = findViewById(R.id.order_btn);
         ratingBar = findViewById(R.id.ratingBar);
-        TextView rating = findViewById(R.id.rating);
+        ratingTextView = findViewById(R.id.rating);
         feedbackSwitch = findViewById(R.id.feedbackSwitch);
         feedbackEditText = findViewById(R.id.feedbackEditText);
-        Button decrement = findViewById(R.id.decrement);
-        Button increment = findViewById(R.id.increment);
-        orderButton = findViewById(R.id.order_btn);
 
-        // Set listeners
-        decrement.setOnClickListener(v -> {
-            if (quantity > 0) {
-                quantity--;
-                updateQuantityAndPrice();
-            } else {
-                Toast.makeText(RadioActivity.this, "Cannot decrease below 0", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        increment.setOnClickListener(v -> {
+        View.OnClickListener foodListener = v -> {
+            StringBuilder selectedFoods = new StringBuilder();
+            if (pizzaCheckBox.isChecked()) selectedFoods.append("Pizza ");
+            if (burgerCheckBox.isChecked()) selectedFoods.append("Burger ");
+            if (pastaCheckBox.isChecked()) selectedFoods.append("Pasta ");
+            if (saladCheckBox.isChecked()) selectedFoods.append("Salad ");
+            selectedFoodsTextView.setText(selectedFoods.toString());
+        };
+        pizzaCheckBox.setOnClickListener(foodListener);
+        burgerCheckBox.setOnClickListener(foodListener);
+        pastaCheckBox.setOnClickListener(foodListener);
+        saladCheckBox.setOnClickListener(foodListener);
+
+
+        incrementButton.setOnClickListener(v -> {
             quantity++;
             updateQuantityAndPrice();
         });
 
-        // Feedback switch listener
-        feedbackSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                feedbackEditText.setVisibility(View.VISIBLE);
+        decrementButton.setOnClickListener(v -> {
+            if (quantity > 0) {
+                quantity--;
+                updateQuantityAndPrice();
             } else {
-                feedbackEditText.setVisibility(View.GONE);
+                Toast.makeText(this, "Quantity cannot be less than 0", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Order button listener
+
+        ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) ->
+                ratingTextView.setText("Rating: " + rating));
+
+
+        feedbackSwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
+                feedbackEditText.setVisibility(isChecked ? View.VISIBLE : View.GONE));
+
         orderButton.setOnClickListener(v -> {
-            StringBuilder selectedItems = new StringBuilder("Selected Foods: ");
-            if (pizza.isChecked()) selectedItems.append("Pizza ");
-            if (burger.isChecked()) selectedItems.append("Burger ");
-            if (pasta.isChecked()) selectedItems.append("Pasta ");
-            if (salad.isChecked()) selectedItems.append("Salad ");
-
-            int selectedDrinkId = radioGroupDrinks.getCheckedRadioButtonId();
-            RadioButton selectedDrink = findViewById(selectedDrinkId);
-            if (selectedDrink != null) {
-                selectedItems.append("\nDrink: ").append(selectedDrink.getText());
-            } else {
-                selectedItems.append("\nDrink: None");
-            }
-
-            selectedItems.append("\nQuantity: ").append(quantity);
-            selectedItems.append("\nTotal Price: BDT ").append(quantity * pricePerItem);
-            selectedItems.append("\nRating: ").append(ratingBar.getRating());
-
-            String feedback = feedbackSwitch.isChecked() ? feedbackEditText.getText().toString() : "No feedback provided.";
-
-            // Show summary in a Toast
-            Toast.makeText(RadioActivity.this, selectedItems.toString() + "\nFeedback: " + feedback, Toast.LENGTH_LONG).show();
+            String selectedDrink = ((RadioButton) findViewById(radioGroupDrinks.getCheckedRadioButtonId())).getText().toString();
+            String feedback = feedbackEditText.getVisibility() == View.VISIBLE ? feedbackEditText.getText().toString() : "No feedback provided";
+            Toast.makeText(this, "Order placed!\nDrink: " + selectedDrink + "\nFeedback: " + feedback, Toast.LENGTH_LONG).show();
         });
     }
 
     private void updateQuantityAndPrice() {
         quantityTextView.setText(String.valueOf(quantity));
-        priceTextView.setText("BDT " + (quantity * pricePerItem));
+        priceTextView.setText("BDT " + (quantity * PRICE_PER_ITEM));
     }
 }
