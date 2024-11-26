@@ -7,15 +7,15 @@
     android:gravity="center"
     android:background="@drawable/be">
 
+    <!-- Existing Buttons -->
 
     <Button
         android:id="@+id/buttonShowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click"
-        android:textSize="25dp"
+        android:text="@string/click"
+        android:textSize="25sp"
         android:backgroundTint="#AD2600FF" />
-
 
     <TextView
         android:id="@+id/textViewMessage"
@@ -27,7 +27,6 @@
         android:layout_marginTop="16dp"
         android:visibility="gone" />
 
-
     <Button
         android:id="@+id/buttonShowImage"
         android:layout_width="wrap_content"
@@ -37,7 +36,6 @@
         android:textSize="25dp"
         android:backgroundTint="#4DFB8C00" />
 
-
     <ImageView
         android:id="@+id/imageViewExample"
         android:layout_width="200dp"
@@ -46,7 +44,6 @@
         android:layout_marginTop="16dp"
         android:visibility="gone" />
 
-
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
@@ -54,13 +51,11 @@
         android:text="I agree to the terms and conditions"
         android:layout_marginTop="16dp"/>
 
-
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"/>
-
 
     <Button
         android:id="@+id/buttonGoToRadioActivity"
@@ -88,5 +83,14 @@
         android:backgroundTint="#9A234743"
         android:text="Check list view"
         android:textSize="25dp" />
+
+    <!-- Button to navigate to RecyclerView Activity -->
+    <Button
+        android:id="@+id/buttonGoToRecyclerActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to RecyclerView"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>

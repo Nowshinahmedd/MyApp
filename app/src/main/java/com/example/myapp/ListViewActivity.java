@@ -1,5 +1,6 @@
 package com.example.myapp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,9 +18,6 @@ import java.util.List;
 public class ListViewActivity extends AppCompatActivity {
 
     private EditText editTextItem, editTextDescription;
-    private Button addButton;
-    private SearchView searchView;
-    private ExpandableListView expandableListView;
 
     private CustomExpandableListAdapter adapter;
     private List<String> itemTitles;
@@ -37,9 +35,9 @@ public class ListViewActivity extends AppCompatActivity {
 
         editTextItem = findViewById(R.id.editTextItem);
         editTextDescription = findViewById(R.id.editTextDescription);
-        addButton = findViewById(R.id.addButton);
-        searchView = findViewById(R.id.searchView);
-        expandableListView = findViewById(R.id.expandableListView);
+        Button addButton = findViewById(R.id.addButton);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) SearchView searchView = findViewById(R.id.searchView);
+        ExpandableListView expandableListView = findViewById(R.id.expandableListView);
 
 
         itemTitles = new ArrayList<>();
